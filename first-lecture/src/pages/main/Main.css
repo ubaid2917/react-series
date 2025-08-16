@@ -1,0 +1,36 @@
+.main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-top: 20px; */
+}
+.main .image img {
+  height: 90%;
+  margin-top: 60px;
+}
+.main .content {
+  margin-left: 220px;
+  padding-top: 90px;
+}
+.main .content h3 {
+  font-size: 20px;
+  color: #000;
+  font-weight: normal;
+  font-family: Onest;
+} 
+.main .sub-main {
+    display: flex;
+    /* justify-content: space-between; */
+}
+.main .content h1 {
+  font-size: 70px;
+  color: #000;
+  font-weight: bold;
+  font-family: "Wellfleet", serif;
+  font-weight: 600;
+  font-style: bold;
+}
+.main .content p {
+  font-size: 20px;
+  color: #000;
+}

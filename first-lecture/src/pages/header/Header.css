@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap');
+
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: white; */
+  /* margin: 20px 250px; */
+  height: 90px;
+  padding: 0px 20px;
+  border-radius: 40px;
+ 
+}
+.logo {
+  font-size: 40px;
+  font-weight: bold;
+  color: #fff;
+  margin-left: 20px;
+}
+.links{
+  background-color: white;
+  padding: 20px 20px ;
+  border-radius: 20px;
+}
+.links a{
+   padding: 0 20px;
+   text-decoration: none;
+   color: black;
+   font-weight: bold;
+   font-size: 15px;
+}
+.links a:first-child{
+   color: #00B172;
+   border: 1px solid #00B172;
+   border-radius: 20px;
+   padding: 10px 20px;
+   margin: 0px 10px
+}
+.links a:first-child:hover{
+   text-decoration: none;
+}
+.links a:hover{
+  text-decoration: none;
+  color:#00B172;
+} 
+
+.btn-section .btn{
+ padding: 15px 35px;
+  margin-right: 20px;
+  border-radius: 15px;
+  background-color: #00B172;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+
+}
+.btn-section .btn:hover{
+ padding: 15px 35px;
+  margin-right: 20px;
+  border-radius: 15px;
+  background-color: #000;
+  color: white;
+}
+.btn-section .btn1{
+ padding: 15px 35px;
+  margin-right: 20px;
+  border-radius: 15px;
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  border: 1px solid black;
+}
+
+.btn-section .btn1:hover{
+ padding: 15px 35px;
+  margin-right: 20px;
+  border-radius: 15px;
+  background-color: #000;
+  color: white;
+}
