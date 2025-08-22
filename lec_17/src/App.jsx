@@ -38,7 +38,7 @@ function App() {
   return (
     <>
       <h1>Props in React</h1>
-
+ 
       <User obj={obj1} />
       <User obj={obj4} />
       <User obj={obj2} />
