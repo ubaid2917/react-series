@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.h2{
+    color: teal;
+    text-align: center;
+}
+
+img{
+    
+    width: 300px;
+    border-radius: 10px;
+    margin: 10px 20px;
+
+}
+.prof{
+    font-size: 20px;
+    color: gray;
+}
+.button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: teal;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
