@@ -22,9 +22,13 @@ function App() {
     
       <Routes> 
          <Route element={<NavBar />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} /> 
+
+        <Route path="user">
+  <Route path="about" element={<About />} />
+  <Route path="login" element={<Login />} />
+</Route>
+
          </Route>
 
         <Route path="/college"   element={<College />} >
