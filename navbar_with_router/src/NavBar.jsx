@@ -1,9 +1,10 @@
-import { Link } from "react-router";
+import { Link, Outlet } from "react-router";
 import  './Nav.css'
 
 function NavBar() {
   return (
-    <div className="navbar">
+     <div>
+       <div className="navbar">
        
       <div>
         
@@ -35,7 +36,9 @@ function NavBar() {
           </li> 
         </ul>
       </div>
-    </div>
+    </div> 
+    <Outlet/>
+     </div>
   );
 }
 

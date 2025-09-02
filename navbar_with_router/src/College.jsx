@@ -16,7 +16,7 @@ function College(){
                 justifyContent: "center"
             }}>
            <li> 
-                <Link className="link" to="student">Student</Link>
+                <Link className="link" to="">Student</Link>
             </li>
             <li> 
                 <Link className="link" to="department">Department</Link>

@@ -18,14 +18,17 @@ function App() {
 
   return (
     <>
-      <NavBar />
-
-      <Routes>
+      {/* <NavBar />  */} 
+    
+      <Routes> 
+         <Route element={<NavBar />}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
+         </Route>
+
         <Route path="/college"   element={<College />} >
-         <Route path="student" element={<Student />} />
+         <Route  index element={<Student />} />
          <Route path="department" element={<Department />} />
          <Route path="course" element={<Course />} />
         </Route>
