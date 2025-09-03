@@ -11,6 +11,8 @@ import Department from "./Department.jsx";
 import Course from "./Course.jsx";
 import NotFound from "./NotFound.jsx";
 import College from "./College.jsx";
+import User from "./User.jsx";
+import UserDetails from "./UserDetail.jsx";
 import { Routes, Route } from "react-router";
 
 function App() {
@@ -18,25 +20,27 @@ function App() {
 
   return (
     <>
-      {/* <NavBar />  */} 
-    
-      <Routes> 
-         <Route element={<NavBar />}>
-        <Route path="/" element={<Home />} /> 
+      {/* <NavBar />  */}
 
-        <Route path="user">
-  <Route path="about" element={<About />} />
-  <Route path="login" element={<Login />} />
-</Route>
-
-         </Route>
-
-        <Route path="/college"   element={<College />} >
-         <Route  index element={<Student />} />
-         <Route path="department" element={<Department />} />
-         <Route path="course" element={<Course />} />
+      <Routes>UserDetails
+        <Route element={<NavBar />}>
+          <Route path="/" element={<Home />} />
+          {/*  user prefix routes */}
+          <Route path="user">
+            <Route path="about" element={<About />} />
+            <Route path="login" element={<Login />} />
+            <Route index element={<User />} />
+            <Route path="/user/:id" element={<UserDetails />} />
+          </Route>
         </Route>
-        <Route path="/*"   element={<NotFound />} />
+
+        <Route path="/college" element={<College />}>
+          <Route index element={<Student />} />
+          <Route path="department" element={<Department />} />
+          <Route path="course" element={<Course />} />
+        </Route>
+
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </>
   );

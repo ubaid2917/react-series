@@ -7,7 +7,9 @@ function College(){
             textAlign: "center",
             fontFamily: "'Poppins', sans-serif"
         }}>
-            <h2>College Component</h2>  
+            <h2>College Component</h2>    
+
+            <Link to='/'>Back to Home</Link>
             
             <ul  style={{
                 display: "flex",
