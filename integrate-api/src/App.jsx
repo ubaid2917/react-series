@@ -30,7 +30,9 @@ function App() {
   return (
     <>
       {loading == true ? (
-       <div className="loader"></div>
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
       ) : (
         <>
           {data.length > 0 && (
