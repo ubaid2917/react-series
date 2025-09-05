@@ -17,9 +17,6 @@ function User() {
       if(response.statusCode !== 200){
         
       }
-
-      console.log("data", response);
-
       setData(response?.data?.data);
     } catch (error) {
       console.error("Error fetching user:", error);
@@ -28,7 +25,7 @@ function User() {
 
   return (
     <div>
-      <h1>User</h1>  
+      <h1>User</h1>     
 
       <table border="1" cellPadding="10" style={{ borderCollapse: "collapse" }}>
         <thead>

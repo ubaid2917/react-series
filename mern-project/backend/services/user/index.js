@@ -59,6 +59,7 @@ const update = asyncErrorHandler(async (req, res) => {
 const get = asyncErrorHandler(async (req, res) => {
  
     const {count , rows} = await User.findAndCountAll({
+      order: [["createdAt", "DESC"]],
       ...req.pagination
     });
 

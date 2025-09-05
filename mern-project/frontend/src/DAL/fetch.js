@@ -8,3 +8,14 @@ export const getUserList = async () => {
   };
   return invokeApi(reqObj);
 };
+export const addUser = async (data) => {
+  const reqObj = {
+    path: `/sample/add`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    postData: data,
+  };
+  return invokeApi(reqObj);
+};
