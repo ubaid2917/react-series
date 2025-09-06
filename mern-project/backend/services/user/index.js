@@ -20,48 +20,29 @@ const create = asyncErrorHandler(async (req, res) => {
   }
 });
 
-
 const update = asyncErrorHandler(async (req, res) => {
-  const { name, description } = req.body;
   const { id } = req.params;
 
-  //   const currentCategory = await ModelName.findByPk(id);
+  const [status, updatedData] = await User.update(
+    { ...req.body },
+    {
+      where: { id },
+      returning: true,
+    }
+  );
 
-  if (!currentCategory) {
-    return res.status(STATUS_CODES.NOT_FOUND).json({
-      statusCode: 404,
-      message: STATUS_CODES.NOT_FOUND,
-    });
+  if (!status) {
+    return error(res, "data not found");
   }
 
-  //   const [status, updatedData] = await ModelName.update(
-  //     { name, description },
-  //     {
-  //       where: { id },
-  //       returning: true,
-  //     }
-  //   );
-
-  //   if (!status) {
-  //     return res.status(STATUS_CODES.NOT_FOUND).json({
-  //       statusCode: 404,
-  //       message: "Update failed",
-  //     });
-  //   }
-
-  return res.status(STATUS_CODES.SUCCESS).json({
-    statusCode: STATUS_CODES.SUCCESS,
-    message: "Category updated successfully",
-    // data: updatedData[0], // Returning the updated category data
-  });
+  return success(res, TEXTS.UPDATED, updatedData, 200);
 });
 
 const get = asyncErrorHandler(async (req, res) => {
- 
-    const {count , rows} = await User.findAndCountAll({
-      order: [["createdAt", "DESC"]],
-      ...req.pagination
-    });
+  const { count, rows } = await User.findAndCountAll({
+    order: [["createdAt", "DESC"]],
+    ...req.pagination,
+  });
 
   res.status(STATUS_CODES.SUCCESS).json({
     statusCode: 200,
@@ -69,33 +50,37 @@ const get = asyncErrorHandler(async (req, res) => {
     data: rows,
     count,
     limit: req.pagination.limit,
-    
   });
+});
+const getOne = asyncErrorHandler(async (req, res) => {
+  const { id } = req.params;
+  const data = await User.findOne({
+    where: { id },
+  });
+
+  return success(res, "User Found", data, 200);
 });
 
 const del = asyncErrorHandler(async (req, res) => {
-  // const deleted = await ModelName.destroy({
-  //   where: {
-  //     id: req.params?.id
-  //   }
-  // });
-
-  // if(!deleted){
-  //   return res.status(STATUS_CODES.NOT_FOUND).json({
-  //     statusCode: 404,
-  //     message: "No record found against the categoryId for deletion.",
-  //   });
-  // }
-
-  res.status(STATUS_CODES.SUCCESS).json({
-    statusCode: 200,
-    message: TEXTS.DELETED,
+  const user = await User.findOne({
+    where: { id: req.params?.id },
   });
+
+  if (!user) {
+    return error(res, "User not found");
+  }
+
+  await User.destroy({
+    where: { id: req.params?.id },
+  });
+
+  return success(res, TEXTS.DELETED, null, 200);
 });
 
 module.exports = {
   create,
   update,
   get,
+  getOne,
   del,
 };

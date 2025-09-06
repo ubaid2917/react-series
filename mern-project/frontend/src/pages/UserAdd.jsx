@@ -5,7 +5,6 @@ import { Button } from 'react-bootstrap';
 function AddUser() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ function AddUser() {
   const [message,setMessage] = useState('');
 
   const  createUser = async () => {
-     if(!name || !email || !age || !phone || !country){
+     if(!name || !email  || !phone || !country){
       return setError('All fields are required')
      }  else if (!email.includes("@")) {
       return setError("Invalid email format");
@@ -29,7 +28,6 @@ function AddUser() {
       const data = {
         name,
         email,
-        age,
         phone,
         country,
       };
@@ -52,7 +50,7 @@ function AddUser() {
 
   return (
     <>
-      <h1> Add New User</h1> 
+      <h1> Add User</h1> 
       {
        error && <p style={{color: 'red'}}>{error}</p>
       } 
@@ -66,6 +64,7 @@ function AddUser() {
         onChange={(event) => setName(event.target.value)}
       />{" "}
       <br /> <br />
+  
       <input
         type="email"
         placeholder="Enter Email"

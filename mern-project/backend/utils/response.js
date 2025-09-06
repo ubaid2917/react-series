@@ -1,17 +1,29 @@
 module.exports = {
-  success: (res, message, data = null, code = 200) => {
-    return res.status(code).json({
+  success: (res, message, data, code = 200, pagination = null) => {
+    const response = {
       success: true,
       message,
-      data,
-    });
+    };
+    if (data !== undefined && data !== null) {
+      response.data = data;
+    }
+    if (pagination) {
+      Object.assign(response, pagination);
+    }
+
+    return res.status(code).json(response);
   },
 
   error: (res, message, errors = [], code = 400) => {
-    return res.status(code).json({
+    const response = {
       success: false,
       message,
-      errors,
-    });
-  }
+    };
+
+    if (errors && errors.length > 0) {
+      response.errors = errors;
+    }
+
+    return res.status(code).json(response);
+  },
 };
