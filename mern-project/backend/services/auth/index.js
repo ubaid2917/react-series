@@ -1,31 +1,42 @@
 const asyncErrorHandler = require("../../utils/asyncErrorHandler");
 const { STATUS_CODES, TEXTS } = require("../../config/constants");
 const { User } = require("../../models");
-const {} = require("sequelize");
 const { success, error } = require("../../utils/response");
+const { generateToken } = require("../../utils/jwtToken");
 const bcrypt = require('bcrypt');
 
-const create = asyncErrorHandler(async (req, res) => {
-  try { 
-     
-    const {password} = req.body;
-    
-    const isExistEmail = await User.findOne({
-      where: { email: req.body.email },
+const login = asyncErrorHandler(async (req, res) => {
+  try {
+      const {email, password} = req.body;
+    const isExistUser = await User.findOne({
+      where: { email: email },
     });
-    if (isExistEmail) {
-      return error(res, "User already exist");  
-    }    
+    if (!isExistUser) {
+      return error(res, "Invalid Credientials");
+    }
+    
+    const isPassword = await bcrypt.compare(password, isExistUser.password);
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    if(!isPassword){
+      return error(res, "Invalid Credientials");
+    }
 
-    req.body.password = hashedPassword
-      
-    const user = await User.create(req.body);
+     const token = generateToken(isExistUser);  
 
-    return success(res, TEXTS.CREATED, user, 201);
+     delete isExistUser.password
+
+     const data = {
+       user:isExistUser,
+       token:  token
+     }
+      return res.status(STATUS_CODES.SUCCESS).json({
+        success: true,
+        user: isExistUser,
+        token: token
+      })
+   
   } catch (err) {
-    return error(res, "Failed to create user", [err.message], 500);
+    return error(res, "Failed to login user", [err.message], 500);
   }
 });
 
@@ -87,7 +98,7 @@ const del = asyncErrorHandler(async (req, res) => {
 });
 
 module.exports = {
-  create,
+  login,
   update,
   get,
   getOne,

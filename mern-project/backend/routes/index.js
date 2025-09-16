@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
-router.use('/sample', require('../controllers/sample/index'))
+router.use('/user', require('../controllers/user/index'))
+router.use('/auth', require('../controllers/auth/index'))
 
 module.exports = router

@@ -18,15 +18,28 @@ module.exports = {
       phone: {
         type: Sequelize.STRING
       },
+      password: {
+        type: Sequelize.STRING
+      },
       country: {
         type: Sequelize.STRING
       },
-      createdAt: {
+      city: {
+        type: Sequelize.STRING
+      },
+      zip: {
+        type: Sequelize.STRING
+      },
+      created: {
         allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updated: {
+        allowNull: true,
         type: Sequelize.DATE
       },
-      updatedAt: {
-        allowNull: false,
+      deleted: {
+        allowNull: true,
         type: Sequelize.DATE
       }
     });
