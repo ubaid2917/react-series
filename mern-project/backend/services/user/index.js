@@ -1,9 +1,11 @@
 const asyncErrorHandler = require("../../utils/asyncErrorHandler");
 const { STATUS_CODES, TEXTS } = require("../../config/constants");
 const { User } = require("../../models");
-const {} = require("sequelize");
+const { where } = require("sequelize");
 const { success, error } = require("../../utils/response");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); 
+const { Op } = require("sequelize"); 
+const { faker } = require('@faker-js/faker');
 
 const create = asyncErrorHandler(async (req, res) => {
   try { 
@@ -27,7 +29,36 @@ const create = asyncErrorHandler(async (req, res) => {
   } catch (err) {
     return error(res, "Failed to create user", [err.message], 500);
   }
-});
+});  
+
+const seed = asyncErrorHandler(async (req, res) => {
+  try {
+     const users = [];
+
+    for (let i = 0; i < 200; i++) {
+      const hashedPassword = await bcrypt.hash("123456", 10); // default password for all
+
+      users.push({
+        name: faker.person.fullName(),
+        email: faker.internet.email(),
+        phone: faker.phone.number("03#########"), // Pakistani style phone
+        country: faker.location.country(),
+        city: faker.location.city(),
+        zip: faker.location.zipCode(),
+        password: hashedPassword,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    }
+
+    await User.bulkCreate(users);
+
+    console.log("✅ 200 fake users inserted successfully!");
+  } catch (err) {
+    return error(res, "Failed to create user", [err.message], 500);
+  }
+})  
+
 
 const update = asyncErrorHandler(async (req, res) => {
   const { id } = req.params;
@@ -47,10 +78,30 @@ const update = asyncErrorHandler(async (req, res) => {
   return success(res, TEXTS.UPDATED, updatedData, 200);
 });
 
-const get = asyncErrorHandler(async (req, res) => {
+const get = asyncErrorHandler(async (req, res) => {  
+
+  const {search} = req.query;  
+
+  let whereCondition = {};
+   
+  // just search on email
+  if(search){
+   whereCondition = {
+     [Op.or] : [
+      { name: { [Op.iLike]: `%${search}%` } },
+      { email: { [Op.iLike]: `%${search}%` } },
+      { phone: { [Op.iLike]: `%${search}%` } },
+     ]
+
+   }
+     
+   {email:search}
+  }
+
   const { count, rows } = await User.findAndCountAll({
-    order: [["createdAt", "DESC"]],
-    ...req.pagination,
+    order: [["created", "DESC"]],
+    ...req.pagination, 
+    where: whereCondition
   });
 
   res.status(STATUS_CODES.SUCCESS).json({
